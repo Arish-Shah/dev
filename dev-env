@@ -61,5 +61,3 @@ copy_dir env/.local $HOME/.local
 
 copy_file env/.zshenv $HOME
 copy_file env/.zshrc $HOME
-
-link $HOME/.local/share/nvim/bin/nvim $HOME/.local/bin/vi
