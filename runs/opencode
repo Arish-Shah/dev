@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -e
+
+install_dir="/opt/opencode"
+archive_name="opencode-linux-x64.tar.gz"
+download_url="https://github.com/anomalyco/opencode/releases/latest/download/${archive_name}"
+
+echo "installing dependencies..."
+sudo apt update && sudo apt install unzip -y
+
+echo "removing previously installed version..."
+sudo rm -rf "$install_dir"
+sudo mkdir -p "$install_dir"
+sudo chown "$USER:$USER" "$install_dir"
+
+echo "downloading opencode..."
+curl -LO "$download_url"
+
+echo "extracting..."
+tar -xzf "$archive_name" -C "$install_dir"
+
+echo "symlinking binary..."
+sudo ln -sf "$install_dir/opencode" /usr/local/bin/opencode
+
+echo "cleaning up..."
+rm "$archive_name"
+
+echo "installed opencode successfully"
