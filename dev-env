@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
-script_dir=$(pwd)
 dry="0"
-
-cd $script_dir
-scripts=$(find ./runs -mindepth 1 -maxdepth 1 -executable -type f)
 
 while [[ $# > 0 ]]; do
     if [[ $1 == "--dry" ]]; then
@@ -57,11 +53,6 @@ link() {
 }
 
 copy_dir env/.config $HOME/.config
-copy_dir env/.local $HOME/.local
 
 copy_file env/.zshenv $HOME
 copy_file env/.zshrc $HOME
-
-link $HOME/.local/share/nvim/bin/nvim $HOME/.local/bin/vi
-link $HOME/.local/share/opencode/opencode $HOME/.local/bin/opencode
-link $HOME/.local/share/zen/zen $HOME/.local/bin/zen

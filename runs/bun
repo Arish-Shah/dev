@@ -3,11 +3,9 @@ set -e
 
 install_dir="$HOME/.local/share/bun"
 
-echo "removing previously installed version..."
 rm -rf "$install_dir"
 mkdir -p "$install_dir"
 
-echo "downloading and installing bun..."
 export BUN_INSTALL="$install_dir"
 curl -fsSL https://bun.sh/install | bash
 

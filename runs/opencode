@@ -5,17 +5,13 @@ install_dir="$HOME/.local/share/opencode"
 archive_name="opencode-linux-x64.tar.gz"
 download_url="https://github.com/anomalyco/opencode/releases/latest/download/$archive_name"
 
-echo "removing previously installed version..."
 rm -rf "$install_dir"
 mkdir -p "$install_dir"
 
-echo "downloading opencode..."
 curl -LO "$download_url"
 
-echo "extracting..."
 tar -xzf "$archive_name" -C "$install_dir"
 
-echo "cleaning up..."
 rm "$archive_name"
 
 echo "installed opencode successfully"
