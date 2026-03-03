@@ -2,6 +2,6 @@
 
 sudo apt update
 
-sudo apt install build-essential curl git gh tmux unzip -y
+sudo apt install build-essential curl fzf git gh ripgrep tmux unzip -y
 
 echo "installed tools successfully"

@@ -8,3 +8,5 @@ sudo journalctl --rotate
 sudo journalctl --vacuum-time=1s
 sudo rm -rf /var/cache/apt/
 rm -rf ~/.cache/*
+
+echo "cleanup complete"
