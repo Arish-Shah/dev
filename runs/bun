@@ -1,22 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
-install_dir="/opt/bun"
-
-echo "installing dependencies..."
-sudo apt update && sudo apt install unzip -y
+install_dir="$HOME/.local/share/bun"
 
 echo "removing previously installed version..."
-sudo rm -rf "$install_dir"
-sudo mkdir -p "$install_dir"
-sudo chown "$USER:$USER" "$install_dir"
+rm -rf "$install_dir"
+mkdir -p "$install_dir"
 
 echo "downloading and installing bun..."
 export BUN_INSTALL="$install_dir"
 curl -fsSL https://bun.sh/install | bash
-
-echo "symlinking binary..."
-sudo ln -sf "$install_dir/bin/bun" /usr/local/bin/bun
-sudo ln -sf "$install_dir/bin/bun" /usr/local/bin/bunx
 
 echo "installed bun successfully"
