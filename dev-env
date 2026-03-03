@@ -63,3 +63,4 @@ copy_file env/.zshenv $HOME
 copy_file env/.zshrc $HOME
 
 link $HOME/.local/share/nvim/bin/nvim $HOME/.local/bin/vi
+link $HOME/.local/share/opencode/opencode $HOME/.local/bin/opencode
