@@ -56,3 +56,5 @@ copy_dir env/.config $HOME/.config
 
 copy_file env/.zshenv $HOME
 copy_file env/.zshrc $HOME
+
+link $HOME/.local/share/opencode/opencode $HOME/.local/bin/opencode
