@@ -14,4 +14,4 @@ tar -xzf "$archive_name" -C "$install_dir"
 
 rm "$archive_name"
 
-echo "installed opencode successfully"
+echo "opencode installed successfully"

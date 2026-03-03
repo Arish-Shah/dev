@@ -10,4 +10,4 @@ sudo dpkg -i "$archive_name"
 
 rm "$archive_name"
 
-echo "installed chrome successfully"
+echo "chrome installed successfully"

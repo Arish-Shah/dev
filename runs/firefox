@@ -23,4 +23,4 @@ Pin-Priority: 1000
 
 sudo apt-get update && sudo apt-get install firefox
 
-echo "installed firefox successfully"
+echo "firefox installed successfully"

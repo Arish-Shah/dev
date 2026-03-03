@@ -14,4 +14,4 @@ tar -xzf "$archive_name" -C "$install_dir" --strip-components=1
 
 rm "$archive_name"
 
-echo "installed neovim successfully"
+echo "neovim installed successfully"
