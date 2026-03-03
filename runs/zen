@@ -1,19 +1,55 @@
 #!/usr/bin/env bash
 set -e
 
-install_dir="$HOME/.local/share/zen"
+install_dir="/opt/zen"
+desktop_dir="/usr/local/share/applications"
 archive_name="zen.linux-x86_64.tar.xz"
 download_url="https://github.com/zen-browser/desktop/releases/latest/download/$archive_name"
 
 echo "removing previously installed version..."
-rm -rf "$install_dir"
-mkdir -p "$install_dir"
+sudo rm -rf "$install_dir"
+sudo mkdir -p "$install_dir"
 
 echo "downloading zen browser..."
 curl -LO "$download_url"
 
 echo "extracting..."
-tar -xvJf "$archive_name" -C "$install_dir" --strip-components=1
+sudo tar -xvJf "$archive_name" -C "$install_dir" --strip-components=1
+
+echo "symlinking binary..."
+sudo ln -sf "$install_dir/zen" /usr/local/bin/zen
+
+echo "creating desktop file..."
+sudo mkdir -p "$desktop_dir"
+sudo rm -f "$desktop_dir/zen.desktop"
+sudo tee "$desktop_dir/zen.desktop" > /dev/null << 'EOF'
+[Desktop Entry]
+Name=Zen Browser
+Comment=Experience tranquillity while browsing the web without people tracking you!
+Keywords=web;browser;internet
+Exec=zen %u
+Icon=/opt/zen/browser/chrome/icons/default/default128.png
+Terminal=false
+StartupNotify=true
+StartupWMClass=zen
+NoDisplay=false
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;text/mml;x-scheme-handler/http;x-scheme-handler/https;
+Categories=Network;WebBrowser;
+Actions=new-window;new-blank-window;new-private-window;profile-manager-window;
+[Desktop Action new-window]
+Name=Open a New Window
+Exec=zen --new-window %u
+[Desktop Action new-blank-window]
+Name=Open a New Blank Window
+Exec=zen --blank-window %u
+[Desktop Action new-private-window]
+Name=Open a New Private Window
+Exec=zen --private-window %u
+[Desktop Action profile-manager-window]
+Name=Open the Profile Manager
+Exec=zen --ProfileManager
+EOF
 
 echo "cleaning up..."
 rm "$archive_name"
