@@ -2,17 +2,14 @@
 
 set -e
 
-install_dir="$HOME/.local/share/nvim"
-archive_name="nvim-linux-x86_64.tar.gz"
-download_url="https://github.com/neovim/neovim/releases/latest/download/$archive_name"
-
-rm -rf "$install_dir"
-mkdir -p "$install_dir"
+install_dir="$HOME/.local/bin"
+package_name="nvim-linux-x86_64.appimage"
+download_url="https://github.com/neovim/neovim/releases/latest/download/$package_name"
 
 curl -LO "$download_url"
 
-tar -xzf "$archive_name" -C "$install_dir" --strip-components=1
+chmod u+x "$package_name"
 
-rm "$archive_name"
+mv "$package_name" "$HOME/.local/bin/nvim"
 
 echo "neovim installed successfully"
