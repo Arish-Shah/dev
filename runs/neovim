@@ -3,7 +3,7 @@ set -e
 
 install_dir="$HOME/.local/share/nvim"
 archive_name="nvim-linux-x86_64.tar.gz"
-download_url="https://github.com/neovim/neovim/releases/latest/download/${archive_name}"
+download_url="https://github.com/neovim/neovim/releases/latest/download/$archive_name"
 
 echo "removing previously installed version..."
 rm -rf "$install_dir"

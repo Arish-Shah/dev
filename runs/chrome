@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -e
+
+archive_name="google-chrome-stable_current_amd64.deb"
+download_url="https://dl.google.com/linux/direct/$archive_name"
+
+echo "downloading chrome..."
+curl -LO "$download_url"
+
+echo "installing..."
+sudo dpkg -i "$archive_name"
+
+echo "cleaning up..."
+rm "$archive_name"
+
+echo "installed chrome successfully"

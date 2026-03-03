@@ -3,7 +3,7 @@ set -e
 
 install_dir="$HOME/.local/share/opencode"
 archive_name="opencode-linux-x64.tar.gz"
-download_url="https://github.com/anomalyco/opencode/releases/latest/download/${archive_name}"
+download_url="https://github.com/anomalyco/opencode/releases/latest/download/$archive_name"
 
 echo "removing previously installed version..."
 rm -rf "$install_dir"

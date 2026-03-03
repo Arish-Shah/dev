@@ -1,3 +1,3 @@
 # dev
 
-install and setup stuff in wsl
+install and setup stuff in ubuntu
