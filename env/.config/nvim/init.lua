@@ -70,6 +70,7 @@ require('rose-pine').setup({
   styles = { italic = false },
   highlight_groups = { Visual = { reverse = true } },
 })
+
 vim.cmd.colorscheme('rose-pine')
 
 -- pairs
@@ -77,7 +78,9 @@ require('mini.pairs').setup()
 
 -- picker
 local pick = require('mini.pick')
+
 pick.setup({ source = { show = not vim.g.have_nerd_font and pick.default_show or nil } })
+
 vim.keymap.set('n', '<C-p>', pick.builtin.files)
 vim.keymap.set('n', '<C-g>', pick.builtin.grep_live)
 
@@ -110,7 +113,7 @@ end
 vim.diagnostic.config({ virtual_text = true, severity_sort = true })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('my.lsp', {}),
+  group = vim.api.nvim_create_augroup('lsp.attach', {}),
   callback = function(ev)
     local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
     if client:supports_method('textDocument/completion') then
@@ -118,10 +121,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
+
 vim.keymap.set('i', '<C-Space>', vim.lsp.completion.get)
 
 -- treesitter
 require('nvim-treesitter').install({ 'lua', 'typescript' })
+
 vim.api.nvim_create_autocmd('FileType', {
   callback = function() pcall(vim.treesitter.start) end,
 })
