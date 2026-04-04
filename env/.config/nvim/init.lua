@@ -1,4 +1,4 @@
--- OPTIONS
+-- SETS
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -35,7 +35,7 @@ vim.opt.timeoutlen = 300
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
-vim.opt.completeopt = { 'menu', 'menuone', 'noinsert' }
+vim.opt.completeopt = { 'menu', 'menuone', 'popup', 'noinsert' }
 vim.opt.confirm = true
 
 -- KEYMAPS
@@ -56,8 +56,6 @@ vim.pack.add({
   'https://github.com/rose-pine/neovim',
   'https://github.com/nvim-mini/mini.pairs',
   'https://github.com/nvim-mini/mini.pick',
-  'https://github.com/nvim-mini/mini.completion',
-  'https://github.com/nvim-mini/mini.keymap',
   'https://github.com/neovim/nvim-lspconfig',
   'https://github.com/mason-org/mason.nvim',
   'https://github.com/mason-org/mason-lspconfig.nvim',
@@ -75,23 +73,13 @@ require('rose-pine').setup({
 vim.cmd.colorscheme('rose-pine')
 
 -- pairs
-local mini_pairs = require('mini.pairs')
-mini_pairs.setup()
+require('mini.pairs').setup()
 
 -- picker
 local pick = require('mini.pick')
 pick.setup({ source = { show = not vim.g.have_nerd_font and pick.default_show or nil } })
 vim.keymap.set('n', '<C-p>', pick.builtin.files)
 vim.keymap.set('n', '<C-g>', pick.builtin.grep_live)
-
--- completion
-require('mini.completion').setup()
-local map_multistep = require('mini.keymap').map_multistep
-
-map_multistep('i', '<Tab>',   { 'pmenu_next' })
-map_multistep('i', '<S-Tab>', { 'pmenu_prev' })
-map_multistep('i', '<CR>',    { 'pmenu_accept', 'minipairs_cr' })
-map_multistep('i', '<BS>',    { 'minipairs_bs' })
 
 -- lsp
 local servers = {
@@ -107,7 +95,7 @@ local servers = {
   ts_ls = {},
 }
 
-local ensure_installed = vim.tbl_keys(servers or {})
+local ensure_installed = vim.tbl_keys(servers)
 
 require('mason').setup()
 require('mason-lspconfig').setup({
@@ -121,16 +109,21 @@ end
 
 vim.diagnostic.config({ virtual_text = true, severity_sort = true })
 
--- treesitter
-local parsers = { "lua", "typescript" }
-
-require("nvim-treesitter").install(parsers)
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = parsers,
-  callback = function()
-    vim.treesitter.start()
-    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('my.lsp', {}),
+  callback = function(ev)
+    local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
+    if client:supports_method('textDocument/completion') then
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    end
   end,
+})
+vim.keymap.set('i', '<C-Space>', vim.lsp.completion.get)
+
+-- treesitter
+require('nvim-treesitter').install({ 'lua', 'typescript' })
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function() pcall(vim.treesitter.start) end,
 })
 
 vim.api.nvim_create_autocmd('PackChanged', {
