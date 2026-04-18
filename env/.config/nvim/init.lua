@@ -35,7 +35,7 @@ vim.opt.timeoutlen = 300
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
-vim.opt.completeopt = { 'menu', 'menuone', 'popup', 'noinsert' }
+vim.opt.completeopt = { 'menuone', 'noinsert' }
 vim.opt.confirm = true
 
 -- KEYMAPS
@@ -56,10 +56,11 @@ vim.pack.add({
   'https://github.com/rose-pine/neovim',
   'https://github.com/nvim-mini/mini.pairs',
   'https://github.com/nvim-mini/mini.pick',
+  'https://github.com/nvim-mini/mini.completion',
+  'https://github.com/nvim-mini/mini.keymap',
   'https://github.com/neovim/nvim-lspconfig',
   'https://github.com/mason-org/mason.nvim',
   'https://github.com/mason-org/mason-lspconfig.nvim',
-  'https://github.com/nvim-treesitter/nvim-treesitter',
 })
 
 -- undotree
@@ -112,31 +113,10 @@ end
 
 vim.diagnostic.config({ virtual_text = true, severity_sort = true })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('lsp.attach', {}),
-  callback = function(ev)
-    local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
-    if client:supports_method('textDocument/completion') then
-      local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-      client.server_capabilities.completionProvider.triggerCharacters = chars
-      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-    end
-  end,
-})
+require('mini.completion').setup()
+local map_multistep = require('mini.keymap').map_multistep
 
-vim.keymap.set('i', '<C-Space>', vim.lsp.completion.get)
-
--- treesitter
-require('nvim-treesitter').install({ 'lua', 'typescript' })
-
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function() pcall(vim.treesitter.start) end,
-})
-
-vim.api.nvim_create_autocmd('PackChanged', {
-  callback = function(ev)
-    if ev.data.spec.name == 'nvim-treesitter' and ev.data.kind == 'update' then
-      vim.cmd('TSUpdate')
-    end
-  end,
-})
+map_multistep('i', '<Tab>',   { 'pmenu_next' })
+map_multistep('i', '<S-Tab>', { 'pmenu_prev' })
+map_multistep('i', '<CR>',    { 'pmenu_accept', 'minipairs_cr' })
+map_multistep('i', '<BS>',    { 'minipairs_bs' })
