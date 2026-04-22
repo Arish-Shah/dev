@@ -61,6 +61,7 @@ vim.pack.add({
   'https://github.com/neovim/nvim-lspconfig',
   'https://github.com/mason-org/mason.nvim',
   'https://github.com/mason-org/mason-lspconfig.nvim',
+  'https://github.com/romus204/tree-sitter-manager.nvim',
 })
 
 -- undotree
@@ -120,3 +121,8 @@ map_multistep('i', '<Tab>',   { 'pmenu_next' })
 map_multistep('i', '<S-Tab>', { 'pmenu_prev' })
 map_multistep('i', '<CR>',    { 'pmenu_accept', 'minipairs_cr' })
 map_multistep('i', '<BS>',    { 'minipairs_bs' })
+
+-- treesitter
+require('tree-sitter-manager').setup({
+  ensure_installed = { 'lua', 'typescript' },
+})
