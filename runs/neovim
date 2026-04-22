@@ -6,6 +6,9 @@ install_dir="$HOME/.local/bin"
 package_name="nvim-linux-x86_64.appimage"
 download_url="https://github.com/neovim/neovim/releases/latest/download/$package_name"
 
+echo "installing fuse dependency for appimage"
+sudo apt update && sudo apt install fuse3 -y
+
 curl -LO "$download_url"
 
 chmod u+x "$package_name"
