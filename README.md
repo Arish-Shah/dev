@@ -1,20 +1,22 @@
 # dev
 
-## wsl ubuntu setup
+> My dotfiles and development environment setup
 
-remove unnecessary packages
+## WSL Ubuntu Setup
+
+### 1. Remove Unnecessary Packages
 
 ```bash
 sudo apt autoremove --purge vim snapd -y
 ```
 
-update and upgrade
+### 2. Update & Upgrade
 
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-create xdg directories
+### 3. Create XDG Directories
 
 ```bash
 mkdir -p "$HOME/.local/"{share,state,bin}
@@ -22,13 +24,13 @@ mkdir -p "$HOME/.config"
 mkdir -p "$HOME/Programming"
 ```
 
-clone this repository
+### 4. Clone This Repository
 
 ```bash
 git clone https://github.com/Arish-Shah/dev "$HOME/Programming/dev"
 ```
 
-run setup scripts
+### 5. Run Setup Scripts
 
 ```bash
 ./run tools
@@ -39,7 +41,7 @@ run setup scripts
 ./dev-env
 ```
 
-cleanup configs
+### 6. Cleanup Configs
 
 ```bash
 rm -rf "$HOME/.bash"* \
