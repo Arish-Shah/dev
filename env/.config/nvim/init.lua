@@ -124,5 +124,5 @@ map_multistep('i', '<BS>',    { 'minipairs_bs' })
 
 -- treesitter
 require('tree-sitter-manager').setup({
-  ensure_installed = { 'lua', 'typescript' },
+  ensure_installed = { 'javascript', 'lua', 'typescript' },
 })
