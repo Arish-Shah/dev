@@ -7,6 +7,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_BIN_HOME="$HOME/.local/bin"
 
 export BUN_INSTALL="$XDG_DATA_HOME/bun"
+export CODEX_HOME="$XDG_DATA_HOME/codex"
 
 export EDITOR="vi"
 
