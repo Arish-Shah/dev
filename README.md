@@ -19,9 +19,9 @@ sudo apt update && sudo apt upgrade -y
 ### 3. create xdg directories
 
 ```bash
-mkdir -p "$HOME/.local/"{share,state,bin}
-mkdir -p "$HOME/.config"
-mkdir -p "$HOME/Programming"
+mkdir -p "$HOME/.local/"{share,state,bin} \
+&& mkdir -p "$HOME/.config" \
+&& mkdir -p "$HOME/Programming"
 ```
 
 ### 4. clone repo

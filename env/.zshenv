@@ -6,9 +6,10 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_BIN_HOME="$HOME/.local/bin"
 
-export BUN_INSTALL="$XDG_DATA_HOME/bun"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export NVM_DIR="$XDG_DATA_HOME/nvm"
 
 export EDITOR="vi"
 
 typeset -U path PATH
-path=($BUN_INSTALL/bin $XDG_BIN_HOME $path)
+path=($XDG_BIN_HOME $path)
