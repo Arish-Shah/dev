@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 sudo apt update && sudo apt install zsh -y
 
 export ZSH="$HOME/.local/share/oh-my-zsh"

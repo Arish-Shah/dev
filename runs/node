@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 export NVM_DIR="$HOME/.local/share/nvm"
 mkdir -p "$NVM_DIR"
 
